@@ -9,7 +9,7 @@ app.use(express.json())
 
 // Defining the api with files
 
-
+app.use('/api/auth',require('./routes/auth'))
 
 
 
