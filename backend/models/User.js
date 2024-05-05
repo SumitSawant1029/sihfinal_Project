@@ -10,12 +10,16 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  adhar:{
+    type: Number,
+    required:true
+  },
   gender: {
     type: String,
     required: true
   },
   mob: {
-    type: String,
+    type: Number,
     required: true
   },
   DOB: {
