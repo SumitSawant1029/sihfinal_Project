@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Login() {
-    const [email, setEmail] = useState("");
+    const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [data1,setdata1]=useState("");
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -14,12 +15,13 @@ function Login() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ username, password }),
             });
             const data = await response.json();
             if (response.ok) {
                 // Login successful, handle token saving or redirection
                 console.log("Login successful:", data);
+                setdata1(data)
             } else {
                 // Login failed, display error message
                 setError(data.error);
@@ -33,16 +35,17 @@ function Login() {
     return (
         <>
             <div>
+                <h1>{ data1.role }</h1>
                 <h2>Login Page</h2>
                 <form onSubmit={handleLogin}>
                     <div>
-                        <label htmlFor="email">Email:</label>
+                        <label htmlFor="username">Username:</label>
                         <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            type="text" 
+                            id="username" 
+                            name="username" 
+                            value={username}
+                            onChange={(e) => setusername(e.target.value)}
                         />
                     </div>
                     <div>

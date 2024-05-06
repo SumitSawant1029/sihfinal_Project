@@ -11,7 +11,8 @@ function SignUp() {
     dob: "",
     adhar: "",
     mob: "",
-    role: ""
+    role: "",
+    username: ""
   });
   const [error, setError] = useState("");
 
@@ -46,7 +47,8 @@ function SignUp() {
           mob: credentials.mob,
           DOB: credentials.dob,
           role: credentials.role,
-          gender: credentials.gender
+          gender: credentials.gender,
+          username:credentials.username
         })
       }
     );
@@ -64,7 +66,8 @@ function SignUp() {
         dob: "",
         adhar: "",
         mob: "",
-        role: ""
+        role: "",
+        username:""
       });
       setError("");
       // Handle successful response
@@ -83,6 +86,10 @@ function SignUp() {
           <div>
             <label htmlFor="name">Name:</label>
             <input type="text" id="name" name="name" value={credentials.name} onChange={handleChange} />
+          </div>
+          <div>
+            <label htmlFor="name">Username:</label>
+            <input type="text" id="username" name="username" value={credentials.username} onChange={handleChange} />
           </div>
           <div>
             <label htmlFor="surname">Surname:</label>

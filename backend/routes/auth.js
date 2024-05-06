@@ -3,12 +3,13 @@ const User = require('../models/User');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
-var fetchuser = require('../middleware/fetchuser');
+const jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser');
+const { encryptionKey } = require('../models/User');
 
 const JWT_SECRET = 'GamingEc$mmerce';
 
-// ROUTE 1: Create a User using: POST "/api/auth/createuser". No login required
+// Registration Route
 router.post('/createuser', [
     body('firstname', 'Enter a valid first name').isLength({ min: 3 }),
     body('lastname', 'Enter a valid last name').isLength({ min: 3 }),
@@ -20,23 +21,19 @@ router.post('/createuser', [
     body('password', 'Password must be at least 5 characters').isLength({ min: 5 }),
     body('role','Role is compulsary').notEmpty(),
     body('approval','Wait for approval'),
-  ], async (req, res) => {
-    // If there are errors, return Bad request and the errors
-    let success = false;
+    body('username', 'Username is required').notEmpty()
+], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      // Check whether the user with this email exists already
       let user = await User.findOne({ email: req.body.email });
       if (user) {
         return res.status(400).json({ error: 'Sorry, a user with this email already exists' });
       }
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
-  
-      // Create a new user
       user = await User.create({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
@@ -47,126 +44,67 @@ router.post('/createuser', [
         email: req.body.email,
         password: secPass,
         role: req.body.role,
-        approval: false
+        approval: false,
+        username: req.body.username
       });
-  
       const data = {
         user: {
           id: user.id
         }
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      success =true;
-      res.json({ success , authtoken });
+      res.json({ success: true , authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send('Internal Server Error');
     }
-  });
-  
+});
 
-
-  router.post('/login', [
-    body('email', 'Enter a valid email').isEmail(),
+// Login Route
+router.post('/login', [
+    body('username', 'Username or email is required').notEmpty(),
     body('password', 'Password cannot be blank').exists(),
-  ], async (req, res) => {
-    let success = false;
-    // If there are errors, return Bad request and the errors
+], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-  
-    const { email, password } = req.body;
+    const { username, password } = req.body;
     try {
-      let user = await User.findOne({ email });
+      // Find user by either email or username
+      let user = await User.findOne({ $or: [{ email: username }, { username: username }] });
       if (!user) {
-        success = false
         return res.status(400).json({ error: "Please try to login with correct credentials" });
       }
-  
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
-        success = false
-        return res.status(400).json({ success, error: "Please try to login with correct credentials" });
+        return res.status(400).json({ success: false, error: "Please try to login with correct credentials" });
       }
-  
       const data = {
         user: {
           id: user.id,
           role: user.role,
           approval: user.approval
         }
-      }
+      };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      success = true;
-      res.json({ success, authtoken, role: user.role , approval:user.approval});
-  
+      res.json({ success: true, authtoken, role: user.role, approval: user.approval });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
     }
-  });
-  
+});
 
 // ROUTE 3: Get loggedin User Details using: POST "/api/auth/getuser". Login required
 router.post('/getuser', fetchuser,  async (req, res) => {
-
   try {
-    userId = req.user.id;
-    const user = await User.findById(userId).select("-password")
-    res.send(user)
+    const userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.send(user);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
   }
-})
+});
 
-// // ROUTE 4: Check if Email is Taken: POST "/api/auth/isEmailTaken". Login required
-// router.post('/isEmailTaken',  async (req, res) => {
-//     try {
-//       const { email } = req.body;
-
-  
-//       // Check if a user with the provided email exists in the database
-//       const user = await User.findOne({ email });
-  
-//       if (user) {
-//         // If a user is found with the provided email, send a success response
-//         return res.json({ message: 'User exists' ,code:false});
-//       } else {
-//         // If no user is found with the provided email, send a failure response
-//         return res.json({ message: 'User does not exist', code:true });
-//       }
-//     } catch (error) {
-//       console.error(error.message);
-//       res.status(500).send('Internal Server Error');
-//     }
-//   });
-
-
-
-// router.post('/isPhoneTaken',  async (req, res) => {
-//     try {
-//       const { mob } = req.body;
-
-  
-//       // Check if a user with the provided email exists in the database
-//       const user = await User.findOne({ mob });
-  
-//       if (user) {
-//         // If a user is found with the provided email, send a success response
-//         return res.json({ message: 'Phone exists' ,code:false});
-//       } else {
-//         // If no user is found with the provided email, send a failure response
-//         return res.json({ message: 'Phone does not exist', code:true });
-//       }
-//     } catch (error) {
-//       console.error(error.message);
-//       res.status(500).send('Internal Server Error');
-//     }
-//   });
-  
-
-
- module.exports = router
+module.exports = router;
