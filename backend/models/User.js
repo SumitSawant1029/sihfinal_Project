@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = 'GamingEc$mmerce';
+const encryptionKey = bcrypt.genSaltSync(10);
 
 const UserSchema = new Schema({
   firstname: {
@@ -11,7 +16,7 @@ const UserSchema = new Schema({
     required: true
   },
   adhar:{
-    type: Number,
+    type: String, // Change type to String
     required:true
   },
   gender: {
@@ -19,7 +24,7 @@ const UserSchema = new Schema({
     required: true
   },
   mob: {
-    type: Number,
+    type: String, // Change type to String
     required: true
   },
   DOB: {
@@ -48,6 +53,25 @@ const UserSchema = new Schema({
     required: true
   }
 });
+
+// Middleware to encrypt sensitive fields before saving
+UserSchema.pre('save', function(next) {
+  try {
+    this.mob = jwt.sign(this.mob, encryptionKey);
+    this.email = jwt.sign(this.email, encryptionKey);
+    this.adhar = jwt.sign(this.adhar, encryptionKey);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Method to decrypt sensitive fields before returning
+UserSchema.methods.decryptSensitiveFields = function () {
+  this.mob = jwt.verify(this.mob, encryptionKey);
+  this.email = jwt.verify(this.email, encryptionKey);
+  this.adhar = jwt.verify(this.adhar, encryptionKey);
+};
 
 const User = mongoose.model('logincredentials', UserSchema); 
 module.exports = User;
