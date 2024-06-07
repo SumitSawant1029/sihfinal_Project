@@ -9,6 +9,7 @@ import DoctorHome from './components/doctor/doctorhomepage';
 import AdminHome from './components/admin/adminhomepage';
 import CenterAdminHome from './components/centeradmin/centeradminhomepage';
 import GovernmentHome from './components/government/governmenthome';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/AdminHome" element={<AdminHome/>} />
         <Route path="/DoctorHome" element={<DoctorHome/>} />
         <Route path="/UserHome" element={<UserHome/>} />
+        <Route path="/nav" element={<Navbar/>}/>
       </Routes>
     </Router>
   );

@@ -1,0 +1,56 @@
+.navbar {
+    position: fixed;
+    padding: 8px 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: black; /* Add your desired background color */
+    z-index: 0; /* Ensure the navbar is on top of other content */
+  }
+  
+.button1{
+    background-color: black;
+    color: white;
+    border: 0;
+    size: 100px;
+    padding: 0;
+    width: 100px;
+    height: 45px;
+}
+
+.button1:hover{
+    background-color: #FFAD00;
+    color: black;
+    border-radius: 5%;
+}
+
+.nr{
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+
+ul{
+    list-style-type: none;
+}
+li{
+    display: inline;
+    margin-right: 0px;
+
+}
+
+.button2{
+    background-color: black;
+    color: white;
+    border: 0;
+    size: 100px;
+    padding: 0;
+    width: 100px;
+    height: 45px;
+}
+
+.button2:hover{
+    color: #FFAD00;
+}
