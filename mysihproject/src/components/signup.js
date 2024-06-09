@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import './login.css'
 function SignUp() {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -80,7 +80,7 @@ function SignUp() {
 
   return (
     <>
-      <div>
+      <div className="divsignup">
         <h2>Sign Up Page</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -88,8 +88,8 @@ function SignUp() {
             <input type="text" id="name" name="name" value={credentials.name} onChange={handleChange} />
           </div>
           <div>
-            <label htmlFor="name">Username:</label>
-            <input type="text" id="username" name="username" value={credentials.username} onChange={handleChange} />
+          
+            <input placeholder="Username" type="text" id="username" name="username" value={credentials.username} onChange={handleChange} />
           </div>
           <div>
             <label htmlFor="surname">Surname:</label>
@@ -133,7 +133,9 @@ function SignUp() {
             <select id="role" name="role" value={credentials.role} onChange={handleChange}>
               <option value="">Select</option>
               <option value="Admin">Admin</option>
-              <option value="User">User</option>
+              <option value="RehabCentre">RehabCentre</option>
+              <option value="State">State</option>
+
             </select>
           </div>
           <div>{error && <p style={{ color: "red" }}>{error}</p>}</div>

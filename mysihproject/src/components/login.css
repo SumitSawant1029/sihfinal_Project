@@ -70,3 +70,78 @@ a {
 a:hover {
     text-decoration: underline;
 }
+/* Reset default margin and padding */
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.divlogin {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    position: absolute;
+}
+
+.loginCards {
+    flex: 1; /* Each button takes up equal space */
+    padding: 20px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 5px;
+    background-color: rgb(131, 93, 21);
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    font-size: 100px;
+   
+}
+
+.loginCards:hover {
+    background-color: orange;
+    color: white;
+}
+
+
+.button3{
+    background-color: black;
+    color: white;
+    border: 0;
+    size: 100px;
+    padding: 0;
+    width: 100px;
+    height: 45px;
+    position: relative;
+    left:81px;
+    top:-3px
+}
+
+.button3:hover{
+    background-color: #FFAD00;
+    color: black;
+    border-radius: 5%;
+}
+
+.imagelogin {
+    width: 264px;
+    height: 153px;
+    background-image: url('../Images/loginimage.png');
+    background-size: 258px 124px;
+    background-repeat: no-repeat;
+}
+
+.imagelogin:hover {
+    background-image: url('../Images/loginimage1.png');
+}

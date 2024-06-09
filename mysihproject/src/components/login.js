@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css"; 
-
+import img1 from "../Images/loginimage.png";
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [data1, setData1] = useState("");
     const navigate = useNavigate(); // Hook for navigation
+    const [swit, setswit] = useState(true);
+
+    const hanleswitch = () =>{
+        setswit(!swit);
+    }
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -47,36 +52,53 @@ function Login() {
     };
 
     return (
-        <div>
-            <h1>{data1.role}</h1>
-            <h2>Login Page</h2>
+
+        <div className="container">
+            {/* // Two Cards */}
+            {swit && <div className="divlogin">
+                <button className="loginCards" onClick={hanleswitch}>Rehab Centre</button>
+                <br/><br/>
+                <button style={{ position:"relative"}} onClick={hanleswitch} className="loginCards">State</button>
+            </div>}
+            
+            {/* // Two Cards */}
+            
+            {!swit && 
             <form onSubmit={handleLogin}>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input 
-                        type="text" 
-                        id="username" 
-                        name="username" 
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                {error && <div className="error">{error}</div>}
-                <button type="submit">Login</button>
-                <div>
-                    Don't Have An Account? <Link to="/SignUp">SignUp</Link>
-                </div>
-            </form>
+            <div>
+            <div class="imagelogin"></div>
+
+            <h2 style={{textAlign:"center",color:"orange",position:"relative",right:"6px",top:"-11px"}}>LOGIN</h2>
+                
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    placeholder="Username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+            </div>
+            <br/>
+            <div>
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="password"
+                    name="password" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
+            <br/>
+            
+            {error && <div className="error">{error}</div>}
+            <button className="button3" type="submit">Login</button><br/><br/>
+            <div style={{color:"orange"}}>
+                Don't Have An Account? <Link to="/SignUp" style={{color:"orange"}}>SignUp</Link>
+            </div>
+        </form>}
+            
         </div>
     );
 }

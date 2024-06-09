@@ -8,17 +8,18 @@
     z-index: 0; /* Ensure the navbar is on top of other content */
   }
   
-.button1{
+.button4{
     background-color: black;
     color: white;
     border: 0;
-    size: 100px;
-    padding: 0;
-    width: 100px;
+    width: 78px;
     height: 45px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
-.button1:hover{
+.button4:hover{
     background-color: #FFAD00;
     color: black;
     border-radius: 5%;

@@ -4,12 +4,10 @@ import React from 'react';
 import LandingPage from './components/landingpage';
 import SignUp from './components/signup';
 import Login from './components/login';
-import UserHome from './components/user/userlogin';
-import DoctorHome from './components/doctor/doctorhomepage';
-import AdminHome from './components/admin/adminhomepage';
-import CenterAdminHome from './components/centeradmin/centeradminhomepage';
-import GovernmentHome from './components/government/governmenthome';
 import Navbar from './components/Navbar';
+import State from './components/EntityLogin/state';
+import RehabCentre from './components/EntityLogin/rehabcenter';
+import Admin from './components/EntityLogin/Admin';
 
 function App() {
   return (
@@ -18,12 +16,11 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/Signup" element={<SignUp />}/>
         <Route path="/Login" element={<Login/>} />
-        <Route path="/GovernmentHome" element={<GovernmentHome/>} />
-        <Route path="/CenterAdminHome" element={<CenterAdminHome/>} />
-        <Route path="/AdminHome" element={<AdminHome/>} />
-        <Route path="/DoctorHome" element={<DoctorHome/>} />
-        <Route path="/UserHome" element={<UserHome/>} />
+        <Route path="/State" element={<State/>} />
         <Route path="/nav" element={<Navbar/>}/>
+        <Route path="/RehabCentre" element={<RehabCentre/>} />
+        <Route path="/Admin" element={<Admin/>}/>
+
       </Routes>
     </Router>
   );
