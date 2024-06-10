@@ -1,0 +1,16 @@
+input{
+    color:orange;
+    margin-right: 5px;
+    background-color: black;
+    width: 22%;
+    font-size: 15px;
+    border-radius: 6px;
+    border-color: white;
+    height: 50px;
+    
+}
+
+.innerdiv{
+    display:flex;
+    padding:10px 10px;
+}

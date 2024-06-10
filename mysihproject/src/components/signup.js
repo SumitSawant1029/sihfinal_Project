@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './login.css'
+import './signup.css'
 function SignUp() {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -80,58 +80,41 @@ function SignUp() {
 
   return (
     <>
-      <div className="divsignup">
-        <h2>Sign Up Page</h2>
+      <div style={{position:"absolute",width:"100%",height:"100%",right:"-26%",top:"10%"}}>
+        <h2 style={{color:"orange"}}>Sign Up Page</h2>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="name">Name:</label>
-            <input type="text" id="name" name="name" value={credentials.name} onChange={handleChange} />
+          <div className="innerdiv">
+            <input placeholder="firstname" style={{color:"orange",borderRadius:"5px",backgroundColor:"black",width:"22.5%",borderColor:"white",height:"50px",marginRight:"12px"}}  type="text" id="name" name="name" value={credentials.name} onChange={handleChange} />
+            <br/>
+            <input placeholder="Surname" style={{color:"orange",borderRadius:"5px",backgroundColor:"black",width:"22.5%",borderColor:"white",height:"50px",marginRight:"12px"}} type="text" id="surname" name="surname" value={credentials.surname} onChange={handleChange} />
           </div>
-          <div>
-          
-            <input placeholder="Username" type="text" id="username" name="username" value={credentials.username} onChange={handleChange} />
+          <div className="innerdiv">
+            <input placeholder="Email" style={{width:"45.5%"}} type="email" id="email" name="email" value={credentials.email} onChange={handleChange} />
           </div>
-          <div>
-            <label htmlFor="surname">Surname:</label>
-            <input type="text" id="surname" name="surname" value={credentials.surname} onChange={handleChange} />
-          </div>
-          <div>
-            <label htmlFor="gender">Gender:</label>
-            <select id="gender" name="gender" value={credentials.gender} onChange={handleChange}>
-              <option value="">Select</option>
+          <div className="innerdiv">
+            <select id="gender" name="gender" style={{color:"orange",borderRadius:"5px",backgroundColor:"black",width:"22.5%",borderColor:"white",height:"50px",marginRight:"12px"}} value={credentials.gender} onChange={handleChange}>
+              <option value="">Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
               <option value="Other">Other</option>
             </select>
+            <input  placeholder="dob" type="date" id="dob" name="dob" value={credentials.dob} onChange={handleChange} />
           </div>
-          <div>
-            <label htmlFor="dob">Date Of Birth:</label>
-            <input type="date" id="dob" name="dob" value={credentials.dob} onChange={handleChange} />
+          <div className="innerdiv">
+            <input placeholder="Adhar Card Number" style={{marginRight:"13px"}} type="number" id="adhar" name="adhar" value={credentials.adhar} onChange={handleChange} maxLength={12} />
+            <input placeholder="Contact Number" type="number" id="mob" name="mob" value={credentials.mob} onChange={handleChange} maxLength={10} />
           </div>
-          <div>
-            <label htmlFor="adhar">Adhar Card Number:</label>
-            <input type="text" id="adhar" name="adhar" value={credentials.adhar} onChange={handleChange} maxLength={12} />
+          
+          <div className="innerdiv">
+            <input placeholder="Username" style={{color:"orange",borderRadius:"5px",backgroundColor:"black",width:"22.5%",borderColor:"white",height:"50px",marginRight:"12px"}} type="text" id="username" name="username" value={credentials.username} onChange={handleChange} />
           </div>
-          <div>
-            <label htmlFor="mob">Mobile Number:</label>
-            <input type="text" id="mob" name="mob" value={credentials.mob} onChange={handleChange} maxLength={10} />
+          <div className="innerdiv">
+            <input placeholder="Password" style={{color:"orange",borderRadius:"5px",backgroundColor:"black",width:"22.5%",borderColor:"white",height:"50px",marginRight:"12px"}} type="password" id="password" name="password" value={credentials.password} onChange={handleChange} />
+            <input type="password"  style={{color:"orange",borderRadius:"5px",backgroundColor:"black",width:"22.5%",borderColor:"white",height:"50px",marginRight:"12px"}} placeholder="Confirm Password" id="confirmPassword" name="confirmPassword" value={credentials.confirmPassword} onChange={handleChange} />
           </div>
-          <div>
-            <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" value={credentials.email} onChange={handleChange} />
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input type="password" id="password" name="password" value={credentials.password} onChange={handleChange} />
-          </div>
-          <div>
-            <label htmlFor="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" value={credentials.confirmPassword} onChange={handleChange} />
-          </div>
-          <div>
-            <label htmlFor="role">Role:</label>
-            <select id="role" name="role" value={credentials.role} onChange={handleChange}>
-              <option value="">Select</option>
+          <div className="innerdiv">
+            <select id="role" name="role" style={{color:"orange",borderRadius:"5px",backgroundColor:"black",width:"22.5%",borderColor:"white",height:"50px",marginRight:"12px"}} value={credentials.role} onChange={handleChange}>
+              <option value="">Role</option>
               <option value="Admin">Admin</option>
               <option value="RehabCentre">RehabCentre</option>
               <option value="State">State</option>
@@ -139,7 +122,7 @@ function SignUp() {
             </select>
           </div>
           <div>{error && <p style={{ color: "red" }}>{error}</p>}</div>
-          <button type="submit">Sign Up</button>
+          <button type="submit" style={{color:"black",borderRadius:"5px",backgroundColor:"orange",position:"relative",left:"12%",width:"22.5%",borderColor:"black",height:"50px",marginRight:"12px"}} >Sign Up</button>
         </form>
       </div>
     </>
