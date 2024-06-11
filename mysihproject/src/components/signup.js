@@ -53,9 +53,9 @@ function SignUp() {
       }
     );
 
-    // Handle response
+   
     if (isEmailValid.ok) {
-      // Reset form fields on successful sign-up
+    
       setCredentials({
         email: "",
         password: "",
@@ -70,17 +70,17 @@ function SignUp() {
         username:""
       });
       setError("");
-      // Handle successful response
+     
     } else {
       const errorData = await isEmailValid.json();
       setError(errorData.error);
-      // Handle error response
+  
     }
   };
 
   return (
     <>
-      <div style={{position:"absolute",width:"100%",height:"100%",right:"-26%",top:"10%"}}>
+      <div style={{position:"absolute",width:"1368px",height:"100%",left:"33%",top:"10%"}}>
         <h2 style={{color:"orange"}}>Sign Up Page</h2>
         <form onSubmit={handleSubmit}>
           <div className="innerdiv">

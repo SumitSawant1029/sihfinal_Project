@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState , useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./login.css"; 
-import img1 from "../Images/loginimage.png";
+
+import { AuthContext } from './AuthContext';
+
+
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [data1, setData1] = useState("");
-    const navigate = useNavigate(); // Hook for navigation
+    const navigate = useNavigate(); 
     const [swit, setswit] = useState(true);
+    const { setAuthToken } = useContext(AuthContext);
 
     const hanleswitch = () =>{
         setswit(!swit);
@@ -28,18 +32,17 @@ function Login() {
             if (response.ok) {
                 // Login successful, handle token saving or redirection
                 console.log("Login successful:", data);
+                setAuthToken(data.authtoken);
                 setData1(data);
                 // Navigate based on user role
-                if (data.role === "Admin" && data.approval === "True") {
-                    navigate("/AdminHome");
-                } else if (data.role === "User"&& data.approval === "True") {
-                    navigate("/UserHome");
-                } else if (data.role === "Government Admin" && data.approval === "True"){
-                    navigate("/GovernmentHome");
-                } else if (data.role === "Center Admin" && data.approval === "True"){
-                    navigate("/CenterAdminHome");
-                } else if (data.role === "Doctor" && data.approval === "True"){
-                    navigate("/DoctorHome");
+                if (data.role === "Admin"&& data.approval === true) {
+                    navigate("/Admin");
+                } else if (data.role === "RehabCentre"&& data.approval === true) {
+                    navigate("/RehabCentre");
+                } else if (data.role === "State" && data.approval === true){
+                    navigate("/State");
+                } else if (data.approval === false){
+                    setError("Your Approval Is Pending! Please Wait till its resolved ");
                 }
         } else {
                 // Login failed, display error message
